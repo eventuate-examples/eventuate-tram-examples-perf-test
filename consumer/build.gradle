@@ -15,5 +15,6 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-jdbc"
 
     implementation "io.micrometer:micrometer-core:$micrometerVersion"
+    implementation "io.micrometer:micrometer-registry-prometheus:$micrometerVersion"
 
 }

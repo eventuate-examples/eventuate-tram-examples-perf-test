@@ -12,6 +12,7 @@ dependencies {
     compile "io.eventuate.tram.core:eventuate-tram-spring-events-publisher-starter"
 
     compile "io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc"
+    implementation "io.micrometer:micrometer-registry-prometheus:$micrometerVersion"
 
 
 }
