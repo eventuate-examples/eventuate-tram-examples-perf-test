@@ -1,0 +1,62 @@
+import java.time.Duration
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "com.avast.gradle:gradle-docker-compose-plugin:$dockerComposePluginVersion"
+    }
+}
+
+apply plugin: 'docker-compose'
+
+subprojects {
+
+    apply plugin: "java"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
+    }
+
+    dependencies {
+        implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"))
+
+        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
+        implementation(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
+        testImplementation "junit:junit:4.13.2"
+
+        constraints {
+            implementation "org.springdoc:springdoc-openapi-ui:$springDocOpenApiUiVersion"
+        }
+    }
+
+}
+
+dockerCompose {
+    environment.put "EVENTUATE_COMMON_VERSION", eventuateCommonImageVersion
+    environment.put "EVENTUATE_CDC_VERSION", eventuateCdcImageVersion
+    environment.put "EVENTUATE_CDC_KAFKA_ENABLE_BATCH_PROCESSING", eventuateCdcKafkaEnableBatchProcessing
+    environment.put "EVENTUATE_JAVA_BASE_IMAGE_VERSION", eventuateExamplesBaseImageVersion
+    environment.put "EVENTUATE_MESSAGING_KAFKA_IMAGE_VERSION", eventuateMessagingKafkaImageVersion
+
+    removeOrphans = true
+    retainContainersOnStartupFailure = true
+
+    dockerComposeStopTimeout = Duration.ofSeconds(1)
+    projectName = null
+
+    mysqlOnly {
+        projectName = null
+        startedServices = ["mysql"]
+    }
+
+}
+
+composeUp.dependsOn(":consumer:assemble")
+composeUp.dependsOn(":producer:assemble")

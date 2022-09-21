@@ -1,0 +1,11 @@
+time docker exec eventuate-tram-examples-perf-test_producer_1 curl -v -X  POST --data "{}" -H 'content-type: application/json' http://localhost:8080/producer
+
+curl -v -X  POST --data "{}" -H 'content-type: application/json' http://localhost:8081/producer
+
+
+insert into message(id, destination,headers, payload)  values('id-1', 'foo', '{"ID" : "1"}', '{}');
+insert into message(id, destination,headers, payload)  values('id-10', 'foo', '{"ID" : "1"}', '{}');
+
+SELECT tx.trx_id FROM information_schema.innodb_trx tx WHERE tx.trx_mysql_thread_id = connection_id();
+
+SHOW ENGINE INNODB STATUS\G

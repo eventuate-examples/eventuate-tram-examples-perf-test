@@ -1,0 +1,19 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    compile project(":common")
+
+    compile "io.eventuate.tram.core:eventuate-tram-spring-events-subscriber-starter"
+    compile "io.eventuate.tram.core:eventuate-tram-spring-consumer-kafka"
+
+    compile "io.eventuate.tram.core:eventuate-tram-spring-consumer-jdbc"
+
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-jdbc"
+
+    implementation "io.micrometer:micrometer-core:$micrometerVersion"
+
+}

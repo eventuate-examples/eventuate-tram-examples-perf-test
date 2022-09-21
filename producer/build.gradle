@@ -1,0 +1,17 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    compile project(":common")
+
+    compile "org.springframework.boot:spring-boot-starter-jdbc"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+
+    compile "io.eventuate.tram.core:eventuate-tram-spring-events-publisher-starter"
+
+    compile "io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc"
+
+
+}
