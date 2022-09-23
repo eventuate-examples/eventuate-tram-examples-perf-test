@@ -16,3 +16,8 @@ docker exec eventuate-tram-examples-perf-test_kafka_1 bin/kafka-topics.sh --boot
 
 docker exec eventuate-tram-examples-perf-test_kafka_1 bin/kafka-consumer-groups.sh --bootstrap-server kafka:29092 --describe --group eventDispatcher
 
+echo 'select count(*) from received_messages;' | ./mysql-cli.sh -i
+
+# Prometheus
+
+rate(consumer_events_consumed_total[30s])
