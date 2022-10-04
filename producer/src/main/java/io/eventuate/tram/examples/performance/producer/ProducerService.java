@@ -21,7 +21,9 @@ public class ProducerService {
     @Transactional
     public void produce(int n) {
         for (int i = 0; i < n; i++) {
-                domainEventPublisher.publish(TestAggregate.class, UUID.randomUUID().toString(), Collections.singletonList(new PerformanceTestEvent()));
+                domainEventPublisher.publish(TestAggregate.class,
+                        UUID.randomUUID().toString(),
+                        Collections.singletonList(new PerformanceTestEvent(System.currentTimeMillis())));
         }
     }
 }

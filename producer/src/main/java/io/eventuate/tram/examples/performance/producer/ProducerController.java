@@ -1,6 +1,7 @@
 package io.eventuate.tram.examples.performance.producer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,10 @@ public class ProducerController {
     public void produce() {
         int n = 1000;
         producerService.produce(n);
+    }
+    @PostMapping("/producer/{count}")
+    public void produce(@PathVariable int count) {
+        producerService.produce(count);
     }
 
 }

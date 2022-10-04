@@ -107,6 +107,7 @@ services:
       EVENTUATE_OUTBOX_ID: 1
       JAVA_OPTS: -Xmx256m -Xms256m
       SPRING_PROFILES_ACTIVE: EventuatePolling
+      EVENTUATELOCAL_CDC_POLLING_INTERVAL_IN_MILLISECONDS: 50
 
   zipkin:
     image: openzipkin/zipkin:2.23
